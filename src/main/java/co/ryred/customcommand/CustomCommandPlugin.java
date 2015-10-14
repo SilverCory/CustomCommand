@@ -4,6 +4,7 @@ import co.ryred.uuidcredits.BukkitListener;
 import co.ryred.uuidcredits.Credits;
 import com.comphenix.packetwrapper.WrapperPlayClientChat;
 import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,12 +40,14 @@ public class CustomCommandPlugin extends JavaPlugin
 
 		newCommandChar = getConfig().getString( "command-char", "/" ).charAt( 0 );
 
-		new PacketAdapter( this, PacketType.Play.Client.CHAT ) {
+		ProtocolLibrary.getProtocolManager().addPacketListener( new PacketAdapter( this, PacketType.Play.Client.CHAT ) {
 
 			@Override
 			public void onPacketReceiving( PacketEvent event )
 			{
+
 				WrapperPlayClientChat chatPacket = new WrapperPlayClientChat( event.getPacket() );
+				System.out.println( chatPacket.getMessage() );
 				if(chatPacket.getMessage().charAt( 0 ) == newCommandChar) {
 					chatPacket.setMessage( "/" + chatPacket.getMessage().substring( 1 ) );
 				}
@@ -52,7 +55,8 @@ public class CustomCommandPlugin extends JavaPlugin
 				event.setPacket( chatPacket.getHandle() );
 
 			}
-		};
+
+		} );
 
 	}
 }
