@@ -1,0 +1,9 @@
+name: CustomCommand
+
+author: Cory Redmond
+
+version: ${project.version}-B${env.BUILD_NUMBER}
+
+main: co.ryred.customcommand.CustomCommandPlugin
+
+description: Allows for changing the command character.
