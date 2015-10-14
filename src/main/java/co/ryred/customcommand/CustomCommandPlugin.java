@@ -45,9 +45,8 @@ public class CustomCommandPlugin extends JavaPlugin
 			@Override
 			public void onPacketReceiving( PacketEvent event )
 			{
-
+			
 				WrapperPlayClientChat chatPacket = new WrapperPlayClientChat( event.getPacket() );
-				System.out.println( chatPacket.getMessage() );
 				if(chatPacket.getMessage().charAt( 0 ) == newCommandChar) {
 					chatPacket.setMessage( "/" + chatPacket.getMessage().substring( 1 ) );
 				}
@@ -55,7 +54,7 @@ public class CustomCommandPlugin extends JavaPlugin
 				event.setPacket( chatPacket.getHandle() );
 
 			}
-
+			
 		} );
 
 	}
